@@ -13,11 +13,11 @@ namespace RobotBLL.Implementation.Commands
     {
         IGameStateService gameStateService;
         IPlayerStateService playerStateService;
-        int pickCharge = 10;
         public PickCargoCommand(IGameStateService changeGameState, IPlayerStateService changePlayerState)
         {
             gameStateService = changeGameState;
             playerStateService = changePlayerState;
+            actionCharge = 10;
         }
 
         public override void Execute()
@@ -67,7 +67,7 @@ namespace RobotBLL.Implementation.Commands
 
         private void PickCargo((int, int) robotCoordinates, Cargo cargo)
         {
-            playerStateService.reduceBatteryCharge(pickCharge);
+            playerStateService.reduceBatteryCharge(actionCharge);
             gameStateService.IncreaseTotalPrice(cargo.Price);
             gameStateService.PickCargoUpdateField(robotCoordinates);
             gameStateService.ReduceCargoAmount();

@@ -6,7 +6,7 @@ namespace RobotBLL.Implementation.Commands
 {
     public class MoveCommand: Command
     {
-        int moveCharge = 5;
+        
         IGameStateService gameState;
         IPlayerStateService playerState;
         MoveParameter parameter;
@@ -18,14 +18,15 @@ namespace RobotBLL.Implementation.Commands
             gameState = changeGameState;
             playerState = changePlayerState;
             this.parameter = parameter;
+            actionCharge = 5;
         }
 
         public override void Execute()
         {
             (int, int) newCoordinates = CheckParameter(parameter);
-            playerState.reduceBatteryCharge(moveCharge);
+            playerState.reduceBatteryCharge(actionCharge);
             playerState.SaveState();
-            gameState.MoveUpdateField(newCoordinates); //?
+            gameState.MoveUpdateField(newCoordinates); 
             gameState.CheckEndGame(playerState.GetBatteryCharge());
         }
 

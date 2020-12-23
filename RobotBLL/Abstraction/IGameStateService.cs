@@ -4,18 +4,9 @@ using RobotBLL.Implementation.FieldModels;
 namespace RobotBLL.Abstraction
 {
     public interface IGameStateService: 
-        IGameObjectsCoordinates, ICargoCalculation, IFieldActions
-    {
-        void ReduceCargoAmount();
-        void IncreaseCargoAmount();
-        void IncreaseTotalPrice(double price);
-        (int, int) GetRobotCoordinates();
-        (int, int) GetFieldDimension();
-        void MoveUpdateField((int, int) newCoordinates);
-        void PickCargoUpdateField((int, int) coordinates);
-        void UndoUpdateField();
+                     IGameObjectsCoordinates, ICargoCalculation, IFieldActions
+    {       
         void CheckEndGame(int robotCharge);
-        Cell GetCell((int, int) cellCoordinates);
         Cargo GetCurrentCellCargo();
     }
     public interface ICargoCalculation
@@ -37,5 +28,4 @@ namespace RobotBLL.Abstraction
         void PickCargoUpdateField((int, int) coordinates);
         void UndoUpdateField();
     }
-
 }
