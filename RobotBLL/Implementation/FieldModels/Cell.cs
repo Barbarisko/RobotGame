@@ -1,8 +1,6 @@
 ﻿using RobotBLL.Implementation.CargoModels;
 using RobotBLL.Implementation.Enums;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RobotBLL.Implementation.FieldModels
 {
@@ -13,13 +11,13 @@ namespace RobotBLL.Implementation.FieldModels
 
         public Cell()
         {
-
         }
 
         public object Clone()
         {
             Cargo cargo = null;
-            if (this.CurrentState == CellState.Cargo || this.CurrentState == CellState.RobotCargo)
+            if (this.CurrentState == CellState.Cargo ||
+                this.CurrentState == CellState.RobotCargo)
             {
                 cargo = new Cargo
                 {

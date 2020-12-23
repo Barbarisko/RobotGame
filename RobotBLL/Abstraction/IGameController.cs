@@ -2,9 +2,6 @@
 using RobotBLL.Implementation.Enums;
 using RobotBLL.Implementation.Models;
 using RobotBLL.Implementation.States;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RobotBLL.Abstraction
 {
@@ -15,7 +12,7 @@ namespace RobotBLL.Abstraction
         GameState GetGameState();
         PlayerState GetPlayerState();
         void Move(MoveParameter moveParameter);
-        void MoveUndo();
+        void UndoMove();
         void PickCargo();
         void PickUndo();
         bool CheckEndGame();

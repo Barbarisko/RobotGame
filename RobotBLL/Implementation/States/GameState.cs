@@ -19,5 +19,13 @@ namespace RobotBLL.Implementation.States
             GameField = field;
             PreviousStates = new Stack<Field>();
         }
+        public void SaveFieldState(Field field)
+        {
+            PreviousStates.Push(field);
+        }
+        public Field RestoreField()
+        {
+            return PreviousStates.Pop();
+        }
     }
 }

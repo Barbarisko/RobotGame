@@ -7,9 +7,6 @@ using RobotBLL.Implementation.Models;
 using RobotBLL.Implementation.RobotModels;
 using RobotBLL.Implementation.Services;
 using RobotBLL.Implementation.States;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RobotBLL.Implementation
 {
@@ -24,17 +21,11 @@ namespace RobotBLL.Implementation
         IPlayerStateService playerStateService;
         GameHistory gameHistory;
 
-
         public GameController(IGameService gameSevice, IPlayerService playerService, ICommandController commandController)
         {
             this.gameService = gameSevice;
             this.playerService = playerService;
             this.commandController = commandController;
-            CreateGameHistory();
-        }
-
-        private void CreateGameHistory()
-        {
             gameHistory = new GameHistory();
         }
 
@@ -79,7 +70,7 @@ namespace RobotBLL.Implementation
             commandController.Move();
         }
 
-        public void MoveUndo()
+        public void UndoMove()
         {
             commandController.MoveUndo();
         }

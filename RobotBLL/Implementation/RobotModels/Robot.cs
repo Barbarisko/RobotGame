@@ -1,7 +1,4 @@
 ﻿using RobotBLL.Implementation.Memento;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RobotBLL.Implementation.RobotModels
 {

@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace RobotPL.Models
 {
     class GameStateModel
     {
-        public int x { get; set; } = 5;
-        public int y { get; set; } = 5;
-        public int cargoAmount { get; set; } = 3;
-        public int toxicCargoAmount { get; set; } = 0;
-        public double MaxPrice { get; set; } = 10;
-        public double MaxWeight { get; set; } = 10;
-        public bool IsDecoding { get; set; } = false;
+        public int x { get; set; }
+        public int y { get; set; }
+        public int cargoAmount { get; set; } 
+        public int toxicCargoAmount { get; set; }
+        public double MaxPrice { get; set; }
+        public double MaxWeight { get; set; }
+        public bool IsDecoding { get; set; }
 
         public GameStateModel(int x, int y, int ca, int tca, double mp, double mw, bool id)
         {
@@ -29,5 +26,6 @@ namespace RobotPL.Models
         {
 
         }
+
     }
 }

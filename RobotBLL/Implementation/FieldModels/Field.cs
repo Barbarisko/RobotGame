@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Linq;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 
 namespace RobotBLL.Implementation.FieldModels
 {
@@ -33,24 +30,11 @@ namespace RobotBLL.Implementation.FieldModels
             return newfield;
         }
 
-        public (int, int) GetCellCoordinates(Cell cell, Cell[,] cells)
-        {
-            for (int i = 0; i < cells.GetLength(0); i++)
-            {
-                for (int j = 0; j < cells.GetLength(1); j++)
-                {
-                    if (cells[i, j].Equals(cell)) return (i, j);
-                }
-            }
-            return (-1, -1);
-        }
-
         public Cell this[(int, int) point]
         {
             get => Cells[point.Item1, point.Item2];
             set => Cells[point.Item1, point.Item2] = value;
         }
-
 
         public IEnumerator<Cell> GetEnumerator()
         {
@@ -59,7 +43,7 @@ namespace RobotBLL.Implementation.FieldModels
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();
+            return GetEnumerator();
         }
     }
 }

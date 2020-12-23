@@ -1,22 +1,21 @@
 ﻿using RobotBLL.Implementation.Factories;
 using RobotBLL.Implementation.RobotModels;
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.Text;
 using RobotBLL.Abstraction;
 using RobotBLL.Implementation.States;
 using RobotBLL.Implementation.Memento;
+using RobotBLL.Implementation.Enums;
 
 namespace RobotBLL.Implementation.Services
 {
     public class PlayerService: IPlayerService
     {
-        public Dictionary<string, double> ChoiceProbability { get; set; } = new Dictionary<string, double>
+        public Dictionary<RobotType, double> ChoiceProbability { get; set; } = new Dictionary<RobotType, double>
         {
-            {"WorkerRobot", 0.5 },
-            {"CyborgRobot", 0.3 },
-            {"SmartRobot", 0.2 }
+            {RobotType.workerRobot, 0.5 },
+            {RobotType.cyborgRobot, 0.3 },
+            {RobotType.smartRobot, 0.2 }
         };
         private Robot CreateRobot(RobotModel model, RobotCreator creator)
         {
@@ -29,7 +28,7 @@ namespace RobotBLL.Implementation.Services
             double sum = 0;
             Random random = new Random();
             double randomNumber = random.NextDouble();
-            foreach (KeyValuePair<string, double> probability in ChoiceProbability)
+            foreach (KeyValuePair<RobotType, double> probability in ChoiceProbability)
             {
                 if (randomNumber <= (sum = sum + probability.Value))
                 {
@@ -44,15 +43,15 @@ namespace RobotBLL.Implementation.Services
         {
             return new PlayerState(ChooseRobot(model), history);
         }
-        private RobotCreator ChooseCreator(string creator)
+        private RobotCreator ChooseCreator(RobotType type)
         {
-            switch (creator)
+            switch (type)
             {
-                case "WorkerRobot":
+                case RobotType.workerRobot:
                     return new WorkerRobotCreator();
-                case "CyborgRobot":
+                case RobotType.cyborgRobot:
                     return new CyborgRobotCreator();
-                case "SmartRobot":
+                case RobotType.smartRobot:
                     return new SmartRobotCreator();
                 default:
                     return null;

@@ -16,17 +16,30 @@ namespace RobotTests
 {
     public class PickCargoCommandTest
     {
+        Mock<IGameStateService> mock;
+        (int, int) robotCoordinates;
+        public PickCargoCommandTest()
+        {
+            mock = new Mock<IGameStateService>();//repeating stuff
+            robotCoordinates = (0, 0);
+        }
         [Fact]
         public void NoCargoInCellTest()
         {
-            //Arrange
-            var mock = new Mock<IGameStateService>();//repeating stuff
-            var robotCoordinates = (0, 0);//again
             mock.Setup(s => s.GetRobotCoordinates()).Returns(robotCoordinates);
             mock.Setup(s => s.GetCell(robotCoordinates)).Returns(new Cell());
             var pickCommand = new PickCargoCommand(mock.Object, null);
 
-            //Act
+            //Assert
+            Assert.Throws<PickCargoException>(() => pickCommand.Execute());
+        }
+        [Fact]
+        public void NoCargoInCellTestnew()
+        {
+            //Arrange
+            mock.Setup(s => s.GetRobotCoordinates()).Returns(robotCoordinates);
+            mock.Setup(s => s.GetCell(robotCoordinates)).Returns(new Cell());
+            var pickCommand = new PickCargoCommand(mock.Object, null);
 
             //Assert
             Assert.Throws<PickCargoException>(() => pickCommand.Execute());
@@ -36,9 +49,7 @@ namespace RobotTests
         public void PickNotDecodingCargoTest()
         {
             //Arrange
-            var mock = new Mock<IGameStateService>();
             var stub = new PlayerStateServiceStub();
-            var robotCoordinates = (0, 0);
             var cell = new Cell()
             {
                 CurrentState = CellState.RobotCargo,
@@ -66,14 +77,9 @@ namespace RobotTests
             {
                 return 0;
             }
-
-            public void reduceBatteryCharge(int percents) { }
-            
-
+            public void reduceBatteryCharge(int percents) { }      
             public void RestoreState(){ }
-
-            public void SaveState() { }
-            
+            public void SaveState() { }            
         }
     }
 }

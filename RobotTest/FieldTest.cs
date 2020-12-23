@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 using FluentAssertions;
 using AutoFixture;
@@ -14,11 +12,11 @@ namespace RobotTests
         [Fact]
         public void DeepCloneTest()
         {
-            //Arrange
+            //Arrange    
             var fixture = new Fixture();
             var array = fixture.Create<Cell[,]>();
             foreach (Cell c in array) c.CurrentState = CellState.Cargo;
-            var field = new Field(array.GetLength(0), array.GetLength(1)) { Cells = array};
+            var field = new Field(array.GetLength(0), array.GetLength(1)) { Cells = array };
 
             //Act
             var result = field.DeepClone();
@@ -33,22 +31,41 @@ namespace RobotTests
             //Arrange
             var field = new Field(5, 5);
 
-            //Act
-
             //Assert
             field.Invoking(f => f[(6, 6)]).Should().Throw<IndexOutOfRangeException>();
         }
+    }
+
+    public class CellsInFieldTests
+    {
+        Fixture fixture;
+        Field field;
+        public CellsInFieldTests()
+        {
+            fixture = new Fixture();
+            field = fixture.Create<Field>();
+
+        }
+        public (int, int) GetCellCoordinates(Cell cell, Cell[,] cells)
+        {
+            for (int i = 0; i < cells.GetLength(0); i++)
+            {
+                for (int j = 0; j < cells.GetLength(1); j++)
+                {
+                    if (cells[i, j].Equals(cell)) return (i, j);
+                }
+            }
+            return (-1, -1);
+        }
 
         [Fact]
-        public void IdexerGetCellTest()
+        public void CheckCellCoordinatesIndexer()
         {
             //Arrange
             var coordinates = (0, 0);
-            var fixture = new Fixture();
-            var field = fixture.Create<Field>();
 
             //Act
-            var result = field.GetCellCoordinates(field[coordinates], field.Cells);
+            var result = GetCellCoordinates(field[coordinates], field.Cells);
 
             //Assert
             Assert.Equal(coordinates, result);
@@ -57,13 +74,9 @@ namespace RobotTests
         [Fact]
         public void GetCellCoordinatesTest()
         {
-            //Arrange
-            var fixture = new Fixture();
-            var field = fixture.Create<Field>();
-
             //Act
             var cell = field[(0, 0)];
-            var coordinates = field.GetCellCoordinates(cell, field.Cells);
+            var coordinates = GetCellCoordinates(cell, field.Cells);
 
             //Assert
             Assert.Equal((0, 0), coordinates);
@@ -73,12 +86,10 @@ namespace RobotTests
         public void NoCellTest()
         {
             //Arrange
-            var fixture = new Fixture();
-            var field = fixture.Create<Field>();
             var cell = new Cell();
 
             //Act
-            var coordinates = field.GetCellCoordinates(cell, field.Cells);
+            var coordinates = GetCellCoordinates(cell, field.Cells);
 
             //Assert
             Assert.Equal((-1, -1), coordinates);

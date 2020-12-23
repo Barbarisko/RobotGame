@@ -9,7 +9,7 @@ using System.Text;
 
 namespace RobotBLL.Implementation.Services
 {
-    public class GameStateService: IGameStateService
+    public class GameStateService: IGameStateService, IGameObjectsCoordinates
     {
         GameState gameState;
 
@@ -59,17 +59,18 @@ namespace RobotBLL.Implementation.Services
             return (gameState.GameField.x, gameState.GameField.y);
         }
 
+
         public void UndoUpdateField()
         {
-            gameState.GameField = gameState.PreviousStates.Pop();
+            gameState.GameField = gameState.RestoreField();
         }
 
         public void MoveUpdateField((int, int) newCoordinates)
         {
             Field field = gameState.GameField;
             (int, int) oldCoordinates = GetRobotCoordinates();
-            var previousState = gameState.PreviousStates.Pop(); // change for peek
-            gameState.PreviousStates.Push(field.DeepClone()); 
+            var previousState = gameState.PreviousStates.Peek(); 
+            gameState.SaveFieldState(field.DeepClone()); 
             ChangeNewRobotCellState(newCoordinates);
             ChangeRobotCellState(oldCoordinates, previousState);
         }
@@ -80,7 +81,7 @@ namespace RobotBLL.Implementation.Services
             int x = coordinates.Item1;
             int y = coordinates.Item2;
             var clonedField = field.DeepClone();
-            gameState.PreviousStates.Push(clonedField); 
+            gameState.SaveFieldState(clonedField); 
             field.Cells[x, y].CurrentState = CellState.Robot;
             field.Cells[x, y].Cargo = null;
         }
@@ -94,7 +95,15 @@ namespace RobotBLL.Implementation.Services
         {
             var robotCoordinates = GetRobotCoordinates();
             Cell cell = GetCell(robotCoordinates);
-            if (cell.CurrentState == CellState.RobotCargo) return cell.Cargo;
+            if (cell.CurrentState == CellState.RobotCargo) 
+                return cell.Cargo;
+            else return null;
+        }
+        public Cargo GetCurrentCell_Cargo((int, int) robotCoordinates)
+        {
+            Cell cell = GetCell(robotCoordinates);
+            if (cell.CurrentState == CellState.RobotCargo)
+                return cell.Cargo;
             else return null;
         }
 
@@ -106,8 +115,10 @@ namespace RobotBLL.Implementation.Services
 
             if (previousState.Cells[x, y].CurrentState == CellState.RobotCargo)
             {
-                if (field.Cells[x, y].Cargo == null) field.Cells[x, y].CurrentState = CellState.Empty;
-                else field.Cells[x, y].CurrentState = CellState.Cargo;
+                if (field.Cells[x, y].Cargo == null) 
+                    field.Cells[x, y].CurrentState = CellState.Empty;
+                else 
+                    field.Cells[x, y].CurrentState = CellState.Cargo;
             }
             else gameState.GameField.Cells[x, y].CurrentState = previousState.Cells[x, y].CurrentState;
         }
@@ -119,7 +130,8 @@ namespace RobotBLL.Implementation.Services
             var currentState = gameState.GameField.Cells[x, y].CurrentState;
             if (currentState == CellState.Cargo)
                 gameState.GameField.Cells[x, y].CurrentState = CellState.RobotCargo;
-            else gameState.GameField.Cells[x, y].CurrentState = CellState.Robot;
+            else 
+                gameState.GameField.Cells[x, y].CurrentState = CellState.Robot;
         }
 
     }

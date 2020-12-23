@@ -1,10 +1,6 @@
 ﻿using RobotBLL.Abstraction;
 using RobotBLL.Exceptions;
 using RobotBLL.Implementation.Enums;
-using RobotBLL.Implementation.RobotModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RobotBLL.Implementation.Commands
 {
@@ -17,7 +13,7 @@ namespace RobotBLL.Implementation.Commands
 
         //раздуватель - длинный список параетров
         public MoveCommand(IGameStateService changeGameState, 
-            IPlayerStateService changePlayerState, MoveParameter parameter)
+                           IPlayerStateService changePlayerState, MoveParameter parameter)
         {
             gameState = changeGameState;
             playerState = changePlayerState;
@@ -29,7 +25,7 @@ namespace RobotBLL.Implementation.Commands
             (int, int) newCoordinates = CheckParameter(parameter);
             playerState.reduceBatteryCharge(moveCharge);
             playerState.SaveState();
-            gameState.MoveUpdateField(newCoordinates);
+            gameState.MoveUpdateField(newCoordinates); //?
             gameState.CheckEndGame(playerState.GetBatteryCharge());
         }
 
@@ -39,7 +35,7 @@ namespace RobotBLL.Implementation.Commands
             gameState.UndoUpdateField();
         }
 
-        private (int, int) CheckParameter(MoveParameter param)
+        private (int, int) CheckParameter(MoveParameter param)//add coords to params?
         {
             (int, int) coordinates = gameState.GetRobotCoordinates();
             switch (param)

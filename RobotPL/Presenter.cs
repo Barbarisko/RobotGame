@@ -1,9 +1,6 @@
 ﻿using RobotBLL.Abstraction;
 using RobotPL.Abstract;
 using RobotPL.Mappers;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RobotPL
 {
@@ -11,37 +8,22 @@ namespace RobotPL
     {
         IView view;
         IGameController gameController;
-        //FieldMapper mapper = new FieldMapper();
-        //MoveParameterMapper moveMapper = new MoveParameterMapper();
-        //StateMapper stateMapper = new StateMapper();
         FieldMapper mapper;
         MoveParameterMapper moveMapper;
         StateMapper stateMapper;
-
 
         public Presenter(IView view, IGameController gameController)
         {
             this.view = view;
             this.gameController = gameController;
             view.OnMove += Move;
-            view.OnMoveUndo += MoveUndo;
+            view.OnMoveUndo += UndoMove;
             view.OnPickCargo += PickCargo;
             view.OnPickUndo += PickUndo;
             view.OnGetCargoInfo += GetCargoInfo;
             mapper = new FieldMapper();
             moveMapper = new MoveParameterMapper();
             stateMapper = new StateMapper();
-        }
-
-        private void GetCargoInfo()
-        {
-            var cargo = gameController.GetCurrentCellCargo();
-            var gameState = gameController.GetGameState();
-            view.DisplayField(mapper.Map(gameState.GameField));
-            DisplayPlayerInfo();
-            if (cargo == null) view.DisplayNoCargoInfo();
-            else view.DisplayCargoInfo(cargo.IsDecoding, cargo.Price, cargo.Weight);
-            view.DisplayGameMenu();
         }
 
         public void StartGame()
@@ -51,6 +33,20 @@ namespace RobotPL
             var gameState = gameController.GetGameState();
             view.DisplayField(mapper.Map(gameState.GameField));
             DisplayPlayerInfo();
+            view.DisplayGameMenu();
+        }
+
+        private void GetCargoInfo()
+        {
+            var cargo = gameController.GetCurrentCellCargo();
+            var gameState = gameController.GetGameState();
+            view.DisplayField(mapper.Map(gameState.GameField));
+            DisplayPlayerInfo();
+
+            if (cargo == null) 
+                view.DisplayNoCargoInfo();
+            else 
+                view.DisplayCargoInfo(cargo.IsDecoding, cargo.Price, cargo.Weight);
             view.DisplayGameMenu();
         }
 
@@ -68,9 +64,9 @@ namespace RobotPL
             CheckEndGame();
         }
 
-        private void MoveUndo()
+        private void UndoMove()
         {
-            gameController.MoveUndo();
+            gameController.UndoMove();
             CheckEndGame();
         }
 

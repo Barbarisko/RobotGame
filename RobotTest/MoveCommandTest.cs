@@ -23,9 +23,6 @@ namespace RobotTests
             mock.Setup(s => s.GetFieldDimension()).Returns((3, 3));
             var moveCommand = new MoveCommand(mock.Object, null, parameter);
 
-            //Act
-
-
             //Assert
             Assert.Throws<MoveException>(() => moveCommand.Execute());//verify the text  of exception?
         }

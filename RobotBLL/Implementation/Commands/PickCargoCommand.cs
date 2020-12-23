@@ -24,7 +24,8 @@ namespace RobotBLL.Implementation.Commands
         {
             var robotCoordinates = gameStateService.GetRobotCoordinates();
             var cargo = CheckCargo(robotCoordinates);
-            if (cargo.IsDecoding) PickDecodingCargo(robotCoordinates, cargo);
+            if (cargo.IsDecoding) 
+                PickDecodingCargo(robotCoordinates, cargo);
             else PickCargo(robotCoordinates, cargo);
         }
 
@@ -37,13 +38,13 @@ namespace RobotBLL.Implementation.Commands
 
         private Cargo CheckCargo((int, int) robotCoordinates)
         {
-    //        int x = robotCoordinates.Item1;
-    //        int y = robotCoordinates.Item2;//zochem
             var cell = gameStateService.GetCell(robotCoordinates);
-            if (cell.CurrentState == CellState.RobotCargo) return cell.Cargo;
+            if (cell.CurrentState == CellState.RobotCargo) 
+                return cell.Cargo;
             else throw new PickCargoException("No cargo in the cell");
         }
 
+        //separate in 2 interfaces - for
         private bool Decode()
         {
             Random random = new Random();

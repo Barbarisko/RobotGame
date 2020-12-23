@@ -23,7 +23,7 @@ namespace RobotPL
             services.AddTransient<ICommandController, CommandController>();
             services.AddTransient<IGameService, GameService>();
             services.AddTransient<IPlayerService, PlayerService>();
-            services.AddTransient<IGameController, GameController>();
+            services.AddSingleton<IGameController, GameController>();
             services.AddTransient<IView, View>();
             services.AddTransient<Presenter, Presenter>();
         }

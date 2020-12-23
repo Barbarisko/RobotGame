@@ -42,8 +42,9 @@ namespace RobotTests
             playerStateService.SaveState();
 
             //Assert
-            Assert.Equal(playerState.GameRobot.BatteryCharge, playerState.History.History.Peek().BatteryCharge);
             Assert.NotEmpty(playerState.History.History);
+
+            Assert.Equal(playerState.GameRobot.BatteryCharge, playerState.History.History.Peek().BatteryCharge);
         }
 
         [Fact]
@@ -61,8 +62,6 @@ namespace RobotTests
 
             //Assert
             Assert.Equal(100, result);
-            
-
         }
 
         internal class RobotStub : Robot

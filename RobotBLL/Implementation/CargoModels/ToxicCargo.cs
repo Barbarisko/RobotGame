@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace RobotBLL.Implementation.CargoModels
 {
     class ToxicCargo: CargoDecorator
@@ -10,7 +7,6 @@ namespace RobotBLL.Implementation.CargoModels
         public ToxicCargo(Cargo cargo)
             :base(cargo.Price, cargo.Weight, cargo.IsDecoding, cargo)
         {
-
         }
     }
 }

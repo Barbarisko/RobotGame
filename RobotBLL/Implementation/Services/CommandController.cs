@@ -1,9 +1,4 @@
 ﻿using RobotBLL.Abstraction;
-using RobotBLL.Implementation.Commands;
-using RobotBLL.Implementation.RobotModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RobotBLL.Implementation.Services
 {

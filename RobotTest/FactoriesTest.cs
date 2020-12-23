@@ -1,8 +1,5 @@
 ﻿using RobotBLL.Implementation.Factories;
 using RobotBLL.Implementation.RobotModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 using FluentAssertions;
 

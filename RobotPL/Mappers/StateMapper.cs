@@ -1,8 +1,5 @@
 ﻿using RobotBLL.Implementation.Models;
 using RobotPL.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RobotPL.Mappers
 {

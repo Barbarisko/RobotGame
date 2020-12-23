@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace RobotBLL.Implementation.Models
+
 {
     public class GameStateOptions
     {
@@ -19,7 +17,8 @@ namespace RobotBLL.Implementation.Models
 
         }
 
-        public GameStateOptions(int x, int y, int cargoAmount, int ToxicCargoAmount, double maxPrice, double maxWeight, bool isDecoding)
+        public GameStateOptions(int x, int y, int cargoAmount, int ToxicCargoAmount, 
+                                double maxPrice, double maxWeight, bool isDecoding)
         {
             this.x = x;
             this.y = y;

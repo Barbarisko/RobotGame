@@ -1,9 +1,9 @@
-﻿using RobotPL.Abstract;
+﻿using RobotBLL.Exceptions;
+using RobotPL.Abstract;
 using RobotPL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace RobotPL
 {
@@ -30,7 +30,7 @@ namespace RobotPL
         {
             Console.WriteLine("Start menu: ");
             Console.WriteLine("Input start game parameters: ");
-            gameStateModel = new GameStateModel();
+            gameStateModel = GetGameStateParameters();
             playerStateModel = GetPlayerStateParameters();
         }
 
@@ -53,8 +53,10 @@ namespace RobotPL
 
         public void DisplayCargoInfo(bool isDecoding, double price, double weight)
         {
-            if (isDecoding) Console.WriteLine("Cargo is decoding");
-            else Console.WriteLine("Cargo is not decoding");
+            if (isDecoding) 
+                Console.WriteLine("Cargo is decoding");
+            else 
+                Console.WriteLine("Cargo is not decoding");
             Console.WriteLine("Cargo price: {0}", price);
             Console.WriteLine("Cargo weight: {0}", weight);
         }
@@ -67,7 +69,8 @@ namespace RobotPL
         public void DisplayGameMenu()
         {
             Console.WriteLine("Game menu: ");
-            Console.WriteLine("1: {0}\n2: {1}\n3: {2}\n4: {3}\n5: {4}\n", options.Cast<object>().ToArray());
+            Console.WriteLine("1: {0}\n2: {1}\n3: {2}\n4: {3}\n5: {4}\n", 
+                               options.Cast<object>().ToArray());
             userOption = Console.ReadLine();
             GetUserOption(userOption);
         }
@@ -112,36 +115,52 @@ namespace RobotPL
             {
                 case "1":
                     Console.WriteLine("Input move parameter: ");
-                    Console.WriteLine("1: {0}\n2: {1}\n3: {2}\n4: {3}\n", moveParameters.Cast<object>().ToArray());
+                    Console.WriteLine("1: {0}\n2: {1}\n3: {2}\n4: {3}\n", 
+                                       moveParameters.Cast<object>().ToArray());
                     moveParameter = Console.ReadLine();
                     try 
                     {
                         OnMove.Invoke();
                     }
-                    catch (Exception ex)
+                    catch (MoveException ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
                     break;
+
                 case "2":
                     try
                     {
                         OnPickCargo.Invoke();
                     }
-                    catch (Exception ex)//
+                    catch (PickCargoException ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
                     break;
+
                 case "3":
                     OnMoveUndo.Invoke();
                     break;
+
                 case "4":
                     OnPickUndo.Invoke();
                     break;
+
                 case "5":
                     OnGetCargoInfo.Invoke();
                     break;
+
+                default:
+                    try
+                    {
+                        throw new InvalidOperationException();
+                    }
+                    catch(InvalidOperationException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        break;
+                    }
             }
         }
 

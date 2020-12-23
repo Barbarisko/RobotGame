@@ -19,4 +19,10 @@ namespace RobotBLL.Implementation.Enums
         Cargo,
         RobotCargo
     }
+    public enum RobotType
+    {
+        workerRobot,
+        cyborgRobot,
+        smartRobot
+    }
 }

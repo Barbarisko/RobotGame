@@ -15,18 +15,17 @@ namespace RobotTests
     public class GameStateServiceTest: IClassFixture<GameStateServiceTest.GameStateFixture>
     {
         GameStateFixture fixture;
-
+        GameStateService gameStateService;
         public GameStateServiceTest(GameStateFixture fixture)
         {
             this.fixture = fixture;
-        }  
+            gameStateService = new GameStateService(fixture.state); //repeating data, use Startup
+
+        }
 
         [Fact]
         public void MoveUpdateField()
         {
-            //Arrange
-            var gameStateService = new GameStateService(fixture.state); //repeating data, use Startup
-
             //Act
             var newCoordinates = (1, 0);
             gameStateService.MoveUpdateField(newCoordinates);
@@ -40,9 +39,6 @@ namespace RobotTests
         [Fact]
         public void UndoUpdateField()
         {
-            //Arrange
-            var gameStateService = new GameStateService(fixture.state);
-
             //Act
             gameStateService.UndoUpdateField();
 

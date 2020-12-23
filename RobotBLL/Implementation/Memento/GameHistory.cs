@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace RobotBLL.Implementation.Memento
 {
@@ -10,6 +8,11 @@ namespace RobotBLL.Implementation.Memento
         public GameHistory()
         {
             History = new Stack<RobotMemento>();
+        }
+
+        public void SaveRobotMemento(RobotMemento memento)
+        {
+            History.Push(memento);
         }
     }
 }

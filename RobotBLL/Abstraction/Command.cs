@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace RobotBLL.Abstraction
 {
     public abstract class Command
@@ -11,6 +8,10 @@ namespace RobotBLL.Abstraction
 
         //отдельные интерфейсы для команд
         public abstract void Undo();
+
+        //int actionCharge;
+        //IGameStateService gameState;
+        //IPlayerStateService playerState;
     }
     public interface ICommand
     {

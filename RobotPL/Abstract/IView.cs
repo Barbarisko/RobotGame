@@ -1,11 +1,8 @@
 ﻿using RobotPL.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RobotPL.Abstract
 {
-    interface IView
+    interface IView: IDisplayable
     {
         GameStateModel gameStateModel { get; set; }
         PlayerStateModel playerStateModel { get; set; }
@@ -17,7 +14,9 @@ namespace RobotPL.Abstract
         event View.Handler OnMoveUndo;
         event View.Handler OnPickUndo;
         event View.Handler OnGetCargoInfo;
-
+    }
+    interface IDisplayable
+    {
         void DisplayStartMenu();
         void DisplayField(FieldModel fieldModel);
         void DisplayGameMenu();

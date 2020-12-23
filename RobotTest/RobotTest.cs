@@ -1,8 +1,5 @@
 ﻿using RobotBLL.Implementation.Memento;
 using RobotBLL.Implementation.RobotModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace RobotTests
@@ -10,7 +7,7 @@ namespace RobotTests
     public class RobotTest
     {
         [Fact]
-        public void SaveStateTest()
+        public void SaveRobotStateTest()
         {
             //Arrange
             var robot = new WorkerRobot(null) { BatteryCharge = 30 };
@@ -23,7 +20,7 @@ namespace RobotTests
         }
 
         [Fact]
-        public void RestoreState()//inapropriate naming
+        public void RestoreRobotStateTest()//inapropriate naming
         {
             //Arrange
             var robot = new CyborgRobot(null);

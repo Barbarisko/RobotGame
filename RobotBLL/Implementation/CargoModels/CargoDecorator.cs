@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace RobotBLL.Implementation.CargoModels
 {
     abstract class CargoDecorator: Cargo
@@ -9,7 +6,7 @@ namespace RobotBLL.Implementation.CargoModels
         protected Cargo cargo;
 
         public CargoDecorator(double price, double weight, bool isDecoding, Cargo cargo)
-            : base(price, weight, isDecoding)
+                       : base(price, weight, isDecoding)
         {
             this.cargo = cargo;
         }

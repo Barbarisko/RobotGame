@@ -32,7 +32,7 @@ namespace RobotBLL.Implementation.Services
 
         public void SaveState()
         {
-            playerState.History.History.Push(playerState.GameRobot.SaveState());
+            playerState.History.SaveRobotMemento(playerState.GameRobot.SaveState());
         }
 
         public void RestoreState()
