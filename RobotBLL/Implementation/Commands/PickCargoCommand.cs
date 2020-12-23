@@ -37,8 +37,8 @@ namespace RobotBLL.Implementation.Commands
 
         private Cargo CheckCargo((int, int) robotCoordinates)
         {
-            int x = robotCoordinates.Item1;
-            int y = robotCoordinates.Item2;
+    //        int x = robotCoordinates.Item1;
+    //        int y = robotCoordinates.Item2;//zochem
             var cell = gameStateService.GetCell(robotCoordinates);
             if (cell.CurrentState == CellState.RobotCargo) return cell.Cargo;
             else throw new PickCargoException("No cargo in the cell");

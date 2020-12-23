@@ -42,6 +42,7 @@ namespace RobotTests
             playerStateService.SaveState();
 
             //Assert
+            Assert.Equal(playerState.GameRobot.BatteryCharge, playerState.History.History.Peek().BatteryCharge);
             Assert.NotEmpty(playerState.History.History);
         }
 
@@ -66,6 +67,8 @@ namespace RobotTests
 
         internal class RobotStub : Robot
         {
+            public int BatteryCharge { get; set; } = 100;
+
             public RobotStub(RobotModel model)
                 :base(model)
             {

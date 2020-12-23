@@ -11,9 +11,13 @@ namespace RobotPL
     {
         IView view;
         IGameController gameController;
-        FieldMapper mapper = new FieldMapper();
-        MoveParameterMapper moveMapper = new MoveParameterMapper();
-        StateMapper stateMapper = new StateMapper();
+        //FieldMapper mapper = new FieldMapper();
+        //MoveParameterMapper moveMapper = new MoveParameterMapper();
+        //StateMapper stateMapper = new StateMapper();
+        FieldMapper mapper;
+        MoveParameterMapper moveMapper;
+        StateMapper stateMapper;
+
 
         public Presenter(IView view, IGameController gameController)
         {
@@ -24,6 +28,9 @@ namespace RobotPL
             view.OnPickCargo += PickCargo;
             view.OnPickUndo += PickUndo;
             view.OnGetCargoInfo += GetCargoInfo;
+            mapper = new FieldMapper();
+            moveMapper = new MoveParameterMapper();
+            stateMapper = new StateMapper();
         }
 
         private void GetCargoInfo()

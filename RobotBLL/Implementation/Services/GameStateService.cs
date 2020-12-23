@@ -68,7 +68,7 @@ namespace RobotBLL.Implementation.Services
         {
             Field field = gameState.GameField;
             (int, int) oldCoordinates = GetRobotCoordinates();
-            var previousState = gameState.PreviousStates.Pop();
+            var previousState = gameState.PreviousStates.Pop(); // change for peek
             gameState.PreviousStates.Push(field.DeepClone()); 
             ChangeNewRobotCellState(newCoordinates);
             ChangeRobotCellState(oldCoordinates, previousState);
@@ -79,7 +79,8 @@ namespace RobotBLL.Implementation.Services
             Field field = gameState.GameField;
             int x = coordinates.Item1;
             int y = coordinates.Item2;
-            gameState.PreviousStates.Push(field.DeepClone());
+            var clonedField = field.DeepClone();
+            gameState.PreviousStates.Push(clonedField); 
             field.Cells[x, y].CurrentState = CellState.Robot;
             field.Cells[x, y].Cargo = null;
         }

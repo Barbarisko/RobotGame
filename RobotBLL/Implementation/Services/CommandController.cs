@@ -13,6 +13,7 @@ namespace RobotBLL.Implementation.Services
         Command MoveCommand;
         Command PickCargoCommand;
 
+        //
         public void SetMoveCommand(Command moveCommand)
         {
             MoveCommand = moveCommand;
@@ -28,6 +29,7 @@ namespace RobotBLL.Implementation.Services
             MoveCommand.Execute();
         }
 
+        //to do single Undo command - not to undo
         public void MoveUndo()
         {
             MoveCommand.Undo();

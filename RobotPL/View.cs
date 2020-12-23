@@ -128,7 +128,7 @@ namespace RobotPL
                     {
                         OnPickCargo.Invoke();
                     }
-                    catch (Exception ex)
+                    catch (Exception ex)//
                     {
                         Console.WriteLine(ex.Message);
                     }

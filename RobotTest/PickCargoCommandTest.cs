@@ -20,8 +20,8 @@ namespace RobotTests
         public void NoCargoInCellTest()
         {
             //Arrange
-            var mock = new Mock<IGameStateService>();
-            var robotCoordinates = (0, 0);
+            var mock = new Mock<IGameStateService>();//repeating stuff
+            var robotCoordinates = (0, 0);//again
             mock.Setup(s => s.GetRobotCoordinates()).Returns(robotCoordinates);
             mock.Setup(s => s.GetCell(robotCoordinates)).Returns(new Cell());
             var pickCommand = new PickCargoCommand(mock.Object, null);

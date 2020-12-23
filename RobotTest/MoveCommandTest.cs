@@ -27,7 +27,7 @@ namespace RobotTests
 
 
             //Assert
-            Assert.Throws<MoveException>(() => moveCommand.Execute());
+            Assert.Throws<MoveException>(() => moveCommand.Execute());//verify the text  of exception?
         }
 
         public class MoveTestData: IEnumerable<object[]>
@@ -42,7 +42,7 @@ namespace RobotTests
 
             IEnumerator IEnumerable.GetEnumerator()
             {
-                throw new NotImplementedException();
+                return GetEnumerator();
             }
         }
     }

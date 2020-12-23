@@ -12,7 +12,7 @@ namespace RobotTests
     public class GameServiceTest
     {
         [Fact]
-        public void CreateGameState_Test()
+        public void CreateGameState_Test()//
         {
             //Arrange
             var options = new GameStateOptions(5, 5, 5, 0, 10, 10, false);
@@ -23,8 +23,9 @@ namespace RobotTests
 
             //Assert
             Assert.NotNull(gameState);
-            var cargosResult = gameState.GameField.Where(c => c.CurrentState == CellState.Cargo || c.CurrentState == CellState.RobotCargo)
-                                            .Count();
+            var cargosResult = gameState.GameField.Where(c => c.CurrentState == CellState.Cargo 
+                                                        || c.CurrentState == CellState.RobotCargo)
+                                                        .Count();//too long parameter list
             Assert.Equal(5, cargosResult);
         }
     }

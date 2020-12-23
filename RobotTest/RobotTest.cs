@@ -23,7 +23,7 @@ namespace RobotTests
         }
 
         [Fact]
-        public void RestoreState()
+        public void RestoreState()//inapropriate naming
         {
             //Arrange
             var robot = new CyborgRobot(null);

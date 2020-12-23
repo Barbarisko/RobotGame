@@ -25,7 +25,7 @@ namespace RobotTests
         public void MoveUpdateField()
         {
             //Arrange
-            var gameStateService = new GameStateService(fixture.state);
+            var gameStateService = new GameStateService(fixture.state); //repeating data, use Startup
 
             //Act
             var newCoordinates = (1, 0);

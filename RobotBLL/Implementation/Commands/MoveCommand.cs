@@ -14,7 +14,10 @@ namespace RobotBLL.Implementation.Commands
         IGameStateService gameState;
         IPlayerStateService playerState;
         MoveParameter parameter;
-        public MoveCommand(IGameStateService changeGameState, IPlayerStateService changePlayerState, MoveParameter parameter)
+
+        //раздуватель - длинный список параетров
+        public MoveCommand(IGameStateService changeGameState, 
+            IPlayerStateService changePlayerState, MoveParameter parameter)
         {
             gameState = changeGameState;
             playerState = changePlayerState;

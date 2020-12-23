@@ -19,7 +19,7 @@ namespace RobotBLL.Implementation.FieldModels
         public object Clone()
         {
             Cargo cargo = null;
-            if (this.CurrentState == CellState.Cargo)
+            if (this.CurrentState == CellState.Cargo || this.CurrentState == CellState.RobotCargo)
             {
                 cargo = new Cargo
                 {
