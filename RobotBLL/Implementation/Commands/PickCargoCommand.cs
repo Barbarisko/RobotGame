@@ -11,18 +11,16 @@ namespace RobotBLL.Implementation.Commands
 {
     public class PickCargoCommand: Command
     {
-        IGameStateService gameStateService;
-        IPlayerStateService playerStateService;
         public PickCargoCommand(IGameStateService changeGameState, IPlayerStateService changePlayerState)
         {
-            gameStateService = changeGameState;
-            playerStateService = changePlayerState;
+            gameState = changeGameState;
+            playerState = changePlayerState;
             actionCharge = 10;
         }
 
         public override void Execute()
         {
-            var robotCoordinates = gameStateService.GetRobotCoordinates();
+            var robotCoordinates = gameState.GetRobotCoordinates();
             var cargo = CheckCargo(robotCoordinates);
             if (cargo.IsDecoding) 
                 PickDecodingCargo(robotCoordinates, cargo);
@@ -31,24 +29,24 @@ namespace RobotBLL.Implementation.Commands
 
         public override void Undo()
         {
-            playerStateService.RestoreState();
-            gameStateService.UndoUpdateField();
-            gameStateService.IncreaseCargoAmount();
+            playerState.RestoreState();
+            gameState.UndoUpdateField();
+            gameState.IncreaseCargoAmount();
         }
 
         private Cargo CheckCargo((int, int) robotCoordinates)
         {
-            var cell = gameStateService.GetCell(robotCoordinates);
+            var cell = gameState.GetCell(robotCoordinates);
             if (cell.CurrentState == CellState.RobotCargo) 
                 return cell.Cargo;
             else throw new PickCargoException("No cargo in the cell");
         }
 
-        //separate in 2 interfaces - for
+        //мб вынести андукомманд
         private bool Decode()
         {
             Random random = new Random();
-            var condition = random.Next() <= playerStateService.GetDecodingProbability();
+            var condition = random.Next() <= playerState.GetDecodingProbability();
             return condition ? true : false;
         }
 
@@ -60,18 +58,18 @@ namespace RobotBLL.Implementation.Commands
             }
             else 
             {
-                playerStateService.reduceBatteryCharge(100);
-                gameStateService.CheckEndGame(playerStateService.GetBatteryCharge());
+                playerState.reduceBatteryCharge(100);
+                gameState.CheckEndGame(playerState.GetBatteryCharge());
             }
         }
 
         private void PickCargo((int, int) robotCoordinates, Cargo cargo)
         {
-            playerStateService.reduceBatteryCharge(actionCharge);
-            gameStateService.IncreaseTotalPrice(cargo.Price);
-            gameStateService.PickCargoUpdateField(robotCoordinates);
-            gameStateService.ReduceCargoAmount();
-            gameStateService.CheckEndGame(playerStateService.GetBatteryCharge());
+            playerState.reduceBatteryCharge(actionCharge);
+            gameState.IncreaseTotalPrice(cargo.Price);
+            gameState.PickCargoUpdateField(robotCoordinates);
+            gameState.ReduceCargoAmount();
+            gameState.CheckEndGame(playerState.GetBatteryCharge());
         }
     }
 }
